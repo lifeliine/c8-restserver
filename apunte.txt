@@ -8,3 +8,23 @@ crear y configurar  .gitignore y .env
 /////////////////////////////////////////////////////////////////////////////////////
 API : servicios http, generalmente el content-type es json, donde configuramos los metodos de peticiones
 como ejemplo vamos a ver una api de usuarios donde get: pido todos los usuarios; post: quiero persistir un nuevo usuario; put: actualizar un usuario....etc
+
+//////////////////////////////////////////////////////////////////////////////////
+Vamos a reorganizar el codigo
+
+CARPETA CONFIG
+verificamos si existe el .env y configuramos el ambiente
+
+Ambiente:
+especificamos donde vamos a ejecutar la app, dependiendo eso nos comportamos de una u otra manera:
+ej queremos meter logs en la app:
+Ambiente de desarrollo --> con que se haga en la consola es suficiente
+Servidor productivo --> deberia generar un archivo con el log, si en un futuro hay un error lo podemos verificar en el archivo
+
+--------------
+
+CARPETA LOADERS
+Para agregar todo lo que tiene que ejecutarse antes de que funcione la app
+Creamos una subCarpeta server para las configuraciones de express
+
+
