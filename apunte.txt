@@ -1,0 +1,6 @@
+Iniciando:
+npm init -y
+npm install express
+npm install dotenv
+npm install nodemon --save-dev
+crear y configurar  .gitignore y .env
