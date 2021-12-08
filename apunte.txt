@@ -4,3 +4,7 @@ npm install express
 npm install dotenv
 npm install nodemon --save-dev
 crear y configurar  .gitignore y .env
+
+/////////////////////////////////////////////////////////////////////////////////////
+API : servicios http, generalmente el content-type es json, donde configuramos los metodos de peticiones
+como ejemplo vamos a ver una api de usuarios donde get: pido todos los usuarios; post: quiero persistir un nuevo usuario; put: actualizar un usuario....etc
