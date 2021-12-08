@@ -2,9 +2,9 @@ require('dotenv').config();
 const express = require('express')
 const app = express()
 const port = process.env.PORT;
-
 app.use(express.json()); //middelware del json, para configuracion, estoy me permite recibir cosas desde el body
- 
+//para los ejemplos de user vamos a hardcodear
+
 app.get('/users', function (req, res) {
   const users = [{id:1,name:'Matias'},{id:2,name:'Pepe'}]
   res.json(users);
@@ -13,12 +13,15 @@ app.get('/users', function (req, res) {
 app.post('/users', function (req, res) {
     const user = req.body; //para recibir algo que viene desde el body(en postmang post->body->raw ahi lo codeamos)
     user.id = 84848;
-    const result = {message: 'User created', user};
+    const result = {message: 'User created', user}; // devolvemos lo que recibimos con un id
     res.status(201).json(result); //201: avisa que esta creado
 });
 
-app.put('/users', function (req, res) {
-    const result = {message: 'User updated'};
+app.put('/users/:id', function (req, res) {
+    const id = req.params.id;
+    const user = req.body;
+    user.id = id;
+    const result = {message: 'User updated',user};
     res.status(200).json(result);
 });
 
