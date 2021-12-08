@@ -5,7 +5,7 @@ class ExpressServer {
     constructor() {
         this.app = express();
         this.port = config.port;
-        this.basePath = config.api.prefix;
+        this.basePath = `${config.api.prefix}/users`;
         this._middelware();
         this._routes();
     }
@@ -16,7 +16,7 @@ class ExpressServer {
     }
 
     _routes(){
-        this.app.use(`${this.basePath}/users`,require('../../routes/usersRoutes'));
+        this.app.use(this.basePath, require('../../routes/usersRoutes'));
     }
 
     async start() {
