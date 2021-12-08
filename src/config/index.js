@@ -2,7 +2,7 @@
 //si no se encuentra avisamos con un error
 const dotenv = require('dotenv');
 
-const enFound = dotenv.config();
+const envFound = dotenv.config();
 if (!envFound){
     throw new Error("Couldn't find .env file");
 }
