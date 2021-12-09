@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 const config = require('../../config');
 class ExpressServer {
 
@@ -13,9 +14,14 @@ class ExpressServer {
 
     _middelware(){
         this.app.use(express.json());//middelware del json, para configuracion, estoy me permite recibir cosas desde el body
+        this.app.use(morgan('tiny'));
     }
 
     _routes(){
+        this.app.head("/status", (req,res) => {
+            res.status(200).end();
+        });
+
         this.app.use(this.basePath, require('../../routes/usersRoutes'));
     }
 
