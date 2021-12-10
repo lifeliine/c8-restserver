@@ -1,6 +1,6 @@
 const express = require('express');
-const res = require('express/lib/response');
 const morgan = require('morgan');
+const swaggerUi = require('swagger-ui-express');
 const config = require('../../config');
 const logger = require('../logger');
 class ExpressServer {
@@ -10,9 +10,11 @@ class ExpressServer {
         this.port = config.port;
         this.basePath = `${config.api.prefix}/users`;
         this._middelware();
+        this._swaggerConfig();
         this._routes();
         this._notFound();
         this._errorHandler();
+        
     }
 
 
@@ -49,6 +51,14 @@ class ExpressServer {
             }
             res.json(body);
         });
+    }
+
+    _swaggerConfig() {
+        this.app.use(
+            config.swagger.path,
+            swaggerUi.serve,
+            swaggerUi.setup(require('../swagger/swaggerDoc.json'))
+        );
     }
 
     async start() {

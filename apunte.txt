@@ -41,3 +41,10 @@ como basepath = https://c8-restserver.herokuapp.com/api/v1
 despues creamos un colleccion con todos los metodos y en las rutas ponemos
 {{basepath}}/users de esta forma no hay que cambiar entre localhost y la ruta de heroku
 postman tiene un desplegable para cambiar entre produccion y desarrollo
+
+//////////////////////////////////////////////////////////////////7
+libreria Winston guarda logs, mensajes
+depende el ambiente si es en desarrollo imprimimos los msj en la consola (reemplazamos los clg)
+si es en produccion en un archivo en una base de datos
+ej: un usuario me dice que en x momento tuvo un error
+puedo consultar en el archivo de logs el error exacto que tuvo el user
