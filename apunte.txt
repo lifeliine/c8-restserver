@@ -28,3 +28,16 @@ Para agregar todo lo que tiene que ejecutarse antes de que funcione la app
 Creamos una subCarpeta server para las configuraciones de express
 
 
+/////////////////////////////////////////
+dependencias agregadas:
+morgan: para ver por consola las entradas que tiene la api, get, post put,etc
+
+//////////////////////////////////////////////////////////////
+postman y heroku
+subimos el proyecto a heroku 
+desde postman creamos 2 ambientes uno de produccion(online heroku) y otro de desarrollo(este proyecto)
+dentro podemos crear variables con las rutas
+como basepath = https://c8-restserver.herokuapp.com/api/v1
+despues creamos un colleccion con todos los metodos y en las rutas ponemos
+{{basepath}}/users de esta forma no hay que cambiar entre localhost y la ruta de heroku
+postman tiene un desplegable para cambiar entre produccion y desarrollo

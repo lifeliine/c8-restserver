@@ -2,6 +2,7 @@ const express = require('express');
 const res = require('express/lib/response');
 const morgan = require('morgan');
 const config = require('../../config');
+const logger = require('../logger');
 class ExpressServer {
 
     constructor() {
@@ -53,7 +54,7 @@ class ExpressServer {
     async start() {
         this.app.listen(this.port, (error) => {
             if (error){
-                console.log(err);
+                logger.error(err);
                 process.exit(1);
                 return;
             }
