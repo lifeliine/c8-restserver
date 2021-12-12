@@ -42,6 +42,11 @@ class ExpressServer {
     _errorHandler() {
         this.app.use((err,req,res,next) => {
             const code = err.code || 500;
+            
+            //para poder ver los errores en la consola en detalle
+            logger.error(`${code} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+            logger.error(err.stack);
+
             res.status(code);
             const body = {
                 error:{
