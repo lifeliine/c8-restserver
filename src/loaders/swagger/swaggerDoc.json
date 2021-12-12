@@ -1,10 +1,10 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Simple Inventory API",
-    "description": "This is a simple API",
+    "title": "API REST base",
+    "description": "This is a simple API to start new proyect",
     "contact": {
-      "email": "you@your-company.com"
+      "email": "matiascespedes2.0@gmail.com"
     },
     "license": {
       "name": "Apache 2.0",
@@ -24,161 +24,140 @@
   ],
   "tags": [
     {
-      "name": "admins",
-      "description": "Secured Admin-only calls"
-    },
-    {
-      "name": "developers",
-      "description": "Operations available to regular developers"
+      "name": "Users",
+      "description": "Operations about users"
     }
   ],
   "paths": {
-    "/inventory": {
+    "/users/": {
       "get": {
         "tags": [
-          "developers"
+          "Users"
         ],
-        "summary": "searches inventory",
-        "description": "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
-        "operationId": "searchInventory",
-        "parameters": [
-          {
-            "name": "searchString",
-            "in": "query",
-            "description": "pass an optional search string for looking up inventory",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "skip",
-            "in": "query",
-            "description": "number of records to skip for pagination",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "maximum number of records to return",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "maximum": 50,
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
+        "summary": "Get a list of all existing users.",
+        "description": "Aca puede ir una descripcion de lo que hace",
         "responses": {
           "200": {
-            "description": "search results matching criteria",
+            "description": "The array of users in JSON format.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/InventoryItem"
+                    "$ref": "#/components/schemas/user"  
                   }
                 }
               }
             }
-          },
-          "400": {
-            "description": "bad input parameter"
           }
         }
       },
       "post": {
         "tags": [
-          "admins"
+          "Users"
         ],
-        "summary": "adds an inventory item",
-        "description": "Adds an item to the system",
-        "operationId": "addInventory",
+        "summary": "Create a new user.",
+        "description": "Adds an user to the system",
         "requestBody": {
-          "description": "Inventory item to add",
+          "description": "User item to add",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InventoryItem"
+                "$ref": "#/components/schemas/user"  
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "item created"
+            "description": "User created"
+          }
+        }
+      },
+      "/users/{id}":{
+        "put":{
+          "tags":["Users"
+          ],
+          "summary" : "Update an existing user by providing the id",
+          "description": "",
+          "parameters":[
+            {
+              "name": "id",
+              "in": "path",
+              "description": "The id of the user that needs to be updated.",
+              "required": true,
+              "schema": {
+              "type":"integer"
+              }
+            }
+          ],
+          "requestBody" : {
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref":"#/components/schemas/user"
+                }
+              }
+            }
           },
-          "400": {
-            "description": "invalid input, object invalid"
-          },
-          "409": {
-            "description": "an existing item already exists"
+          "responses":{
+            "200":{
+              "description": "The user updated",
+              "content":{
+                "application/json":{
+                  "schema":{
+                    "type": "object",
+                    "$ref":"#/components/schemas/user"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags":[
+          "Users"
+        ],
+        "summary":"Delete an existing user by providing the id",
+        "description" : "",
+        "parameters":[
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the user that needs to be deleted.",
+            "required": true,
+            "schema": {
+              "type":"integer"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "User deleted."
           }
         }
       }
+
     }
   },
   "components": {
     "schemas": {
-      "InventoryItem": {
+      "User": {
         "required": [
-          "id",
-          "manufacturer",
-          "name",
-          "releaseDate"
+          "id"
         ],
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          "id":{
+            "description": "The user id.",
+            "type": "integer",          
+            "example": "3"
           },
-          "name": {
-            "type": "string",
-            "example": "Widget Adapter"
-          },
-          "releaseDate": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2016-08-29T09:12:33.001Z"
-          },
-          "manufacturer": {
-            "$ref": "#/components/schemas/Manufacturer"
-          }
-        }
-      },
-      "Manufacturer": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "example": "ACME Corporation"
-          },
-          "homePage": {
-            "type": "string",
-            "format": "url",
-            "example": "https://www.acme-corp.com"
-          },
-          "phone": {
-            "type": "string",
-            "example": "408-867-5309"
+          "name":{
+            "description": "The user name.",
+            "type":"string",          
+            "example":"Adrian"
           }
         }
       }
